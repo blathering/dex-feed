@@ -7,8 +7,8 @@ import (
 	"errors"
 	"math/big"
 
-	univ3pool "github.com/netbound/dex-feed/bindings/uniswap_v3/pool"
-	"github.com/netbound/dex-feed/token"
+	univ3pool "github.com/blathering/dex-feed/bindings/uniswap_v3/pool"
+	"github.com/blathering/dex-feed/token"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
