@@ -1,4 +1,4 @@
-module github.com/netbound/dex-feed
+module github.com/blathering/dex-feed
 
 go 1.17
 
