@@ -26,9 +26,11 @@ type PoolOpts struct {
 }
 
 type PoolState struct {
-	SqrtPriceX96 *big.Int
-	Tick         *big.Int
-	Liquidity    *big.Int
+	SqrtPriceX96   *big.Int
+	Tick           *big.Int
+	Liquidity      *big.Int
+	LiquidityGross *big.Int
+	LiquidityNet   *big.Int
 }
 
 type Pool struct {
@@ -73,7 +75,6 @@ func (p *Pool) UpdateState(ctx context.Context, client *ethclient.Client) error 
 	if err != nil {
 		return err
 	}
-
 	p.State.SqrtPriceX96 = slot0.SqrtPriceX96
 	p.State.Tick = slot0.Tick
 
@@ -81,8 +82,14 @@ func (p *Pool) UpdateState(ctx context.Context, client *ethclient.Client) error 
 	if err != nil {
 		return err
 	}
-
 	p.State.Liquidity = liquidity
+
+	ticks, err := caller.Ticks(opts, big.NewInt(0))
+	if err != nil {
+		return err
+	}
+	p.State.LiquidityGross = ticks.LiquidityGross
+	p.State.LiquidityNet = ticks.LiquidityNet
 
 	return nil
 }
